@@ -14,19 +14,15 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from random import random
+from quickhull import QuickHull
 import cairocffi as cairo
 
 MM_TO_DOTS = 72 / 25.4
 
-def find_hull(P_k, p, q):
-    
-
-def convex_hull(P):
-    CH = []
-
 def voronoi(w, h, n):
     P = [ (random(), random()) for i in range(n) ]
-    CH = convex_hull([ (p[0], p[1], p[0]**2 + p[1]**2) for p in P ])
+    P_ = [ (p[0], p[1], p[0]**2 + p[1]**2) for p in P ]
+    CH = QuickHull(P_)
 
     svg = cairo.SVGSurface('voronoi.svg', w * MM_TO_DOTS, h * MM_TO_DOTS)
     ctx = cairo.Context(svg)
