@@ -15,14 +15,18 @@
 
 from random import random
 from quickhull import QuickHull
-import cairocffi as cairo
+#import cairocffi as cairo
 
-MM_TO_DOTS = 72 / 25.4
+#MM_TO_DOTS = 72 / 25.4
 
 def voronoi(w, h, n):
     P = [ (random(), random()) for i in range(n) ]
-    P_ = [ (p[0], p[1], p[0]**2 + p[1]**2) for p in P ]
-    CH = QuickHull(P_)
+    CH = QuickHull([ (p[0], p[1], p[0]**2 + p[1]**2) for p in P ])
+    CH.generate()
+    CH.export('convexhull')
 
-    svg = cairo.SVGSurface('voronoi.svg', w * MM_TO_DOTS, h * MM_TO_DOTS)
-    ctx = cairo.Context(svg)
+#   svg = cairo.SVGSurface('voronoi.svg', w * MM_TO_DOTS, h * MM_TO_DOTS)
+#   ctx = cairo.Context(svg)
+
+if __name__ == '__main__':
+    voronoi(0, 0, 20)
